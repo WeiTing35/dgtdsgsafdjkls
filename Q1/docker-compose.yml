@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  redis:
+    container_name: "rate-limiting"
+    image: timchencloud/rate-limiting-parser:latest
+    command: python parser.py -l ./logs/${LOGFILENAME} -o ./output
+    ports:
+      - "8000:8000"
+    volumes: 
+      - ${LOGFILEPATH}:/app/logs
+      - ${OUTPUTPATH}:/app/output

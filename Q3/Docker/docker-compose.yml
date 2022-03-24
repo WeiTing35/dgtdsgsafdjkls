@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  redis:
+    container_name: "redis"
+    image: redis:alpine
+    command: redis-server /usr/local/etc/redis/redis.conf 
+    ports: 
+      - "6379:6379"
+    volumes: 
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+
+  go:
+    container_name: "shortener"
+    image: timchencloud/shortener:latest
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
